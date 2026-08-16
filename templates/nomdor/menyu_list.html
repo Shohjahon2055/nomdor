@@ -1,0 +1,146 @@
+{% extends 'nomdor/base.html' %}
+
+{% block content %}
+
+<div class="menu-layout">
+
+    <!-- KATEGORIYALAR -->
+
+    <aside class="categories">
+
+        <a href="{% url 'category' %}" class="category">
+            Menyu
+        </a>
+
+        {% for category in categories %}
+
+            <a
+                href="{% url 'category_products' category.id %}"
+                class="category"
+            >
+                {{ category.name }}
+            </a>
+
+        {% endfor %}
+
+    </aside>
+
+
+    <!-- MAHSULOTLAR -->
+
+    <main class="menu-products">
+
+        <div class="menu-title">
+
+            <span></span>
+
+            <h1>Menyu</h1>
+
+            <span></span>
+
+        </div>
+
+
+        <div class="products">
+
+            {% for product in products %}
+
+                <a
+                    href="{% url 'product_detail' product.pk %}"
+                    class="product-link"
+                >
+
+                    <div class="product-card">
+
+                        <div class="product-image">
+
+                            {% if product.image %}
+
+                                <img
+                                    src="{{ product.image.url }}"
+                                    alt="{{ product.name }}"
+                                >
+
+                            {% endif %}
+
+
+                            <button
+                                class="like"
+                                onclick="event.preventDefault(); toggleLike(this)"
+                            >
+                                ♡
+                            </button>
+
+                        </div>
+
+
+                        <div class="product-info">
+
+                            <h2>
+                                {{ product.name }}
+                            </h2>
+
+
+                            {% if product.description %}
+
+                                <p>
+                                    {{ product.description }}
+                                </p>
+
+                            {% endif %}
+
+
+                            <div class="product-bottom">
+
+                                <strong>
+                                    {{ product.price|floatformat:0 }} so'm
+                                </strong>
+
+                                <span class="detail-btn">
+                                    Batafsil →
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            {% empty %}
+
+                <p class="empty-products">
+                    Hozircha mahsulotlar mavjud emas.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+function toggleLike(button) {
+
+    button.classList.toggle('liked');
+
+    if (button.classList.contains('liked')) {
+
+        button.innerHTML = '♥';
+
+    } else {
+
+        button.innerHTML = '♡';
+
+    }
+
+}
+
+</script>
+
+{% endblock %}
