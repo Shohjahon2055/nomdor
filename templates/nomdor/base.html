@@ -653,6 +653,7 @@
 
                 <span class="header-item username">
                     👤 {{ user.username }}
+                        {{ user.role }}
                 </span>
 
 
@@ -710,7 +711,7 @@
             <!-- SAVAT -->
 
             <a
-                href="#"
+                href="{% url 'cart' %}"
                 class="header-item">
 
                 🛒

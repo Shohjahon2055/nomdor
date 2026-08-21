@@ -1,0 +1,724 @@
+{% extends "nomdor/base.html" %}
+
+{% block content %}
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .cart-page {
+        min-height: 100vh;
+        background: #f3f3f3;
+        padding: 45px 20px;
+    }
+
+    .cart-container {
+        max-width: 1150px;
+        margin: 0 auto;
+    }
+
+    /* SARLAVHA */
+
+    .cart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .cart-header h1 {
+        font-size: 34px;
+        font-weight: 800;
+        color: #151b1f;
+        margin: 0;
+    }
+
+    .cart-count {
+        background: #3fa35b;
+        color: white;
+        padding: 8px 18px;
+        border-radius: 30px;
+        font-weight: 600;
+    }
+
+
+    /* CART ITEM */
+
+    .cart-item {
+        position: relative;
+        background: white;
+        min-height: 330px;
+        border-radius: 22px;
+        margin-bottom: 25px;
+        padding: 35px 45px;
+
+        display: flex;
+        align-items: center;
+
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+        transition: 0.3s;
+    }
+
+    .cart-item:hover {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+
+    /* RASM */
+
+    .cart-image-wrapper {
+        width: 47%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .cart-image {
+        width: 380px;
+        height: 300px;
+        object-fit: contain;
+        border-radius: 20px;
+    }
+
+
+    /* LIKE */
+
+    .like-btn {
+        position: absolute;
+        top: 10px;
+        right: 25px;
+
+        border: none;
+        background: transparent;
+
+        color: #ff2020;
+        font-size: 30px;
+
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .like-btn:hover {
+        transform: scale(1.2);
+    }
+
+
+    /* MAHSULOT MA'LUMOT */
+
+    .cart-info {
+        width: 53%;
+        padding-left: 25px;
+    }
+
+
+    .product-name {
+        font-size: 38px;
+        line-height: 1.15;
+
+        font-weight: 800;
+        color: #151b1f;
+
+        margin-bottom: 28px;
+    }
+
+
+    .product-price {
+        font-size: 34px;
+
+        font-weight: 700;
+        color: #151b1f;
+
+        margin-bottom: 25px;
+    }
+
+
+    /* QUANTITY */
+
+    .quantity-area {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        margin-bottom: 25px;
+    }
+
+    .quantity-btn {
+        width: 60px;
+        height: 60px;
+
+        border-radius: 17px;
+
+        background: white;
+
+        font-size: 30px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+
+        text-decoration: none;
+    }
+
+
+    /* MINUS */
+
+    .minus-btn {
+        border: 1px solid #ff2020;
+        color: #ff2020;
+    }
+
+    .minus-btn:hover {
+        background: #ff2020;
+        color: white;
+    }
+
+
+    /* PLUS */
+
+    .plus-btn {
+        border: 1px solid #3fa35b;
+        color: #3fa35b;
+    }
+
+    .plus-btn:hover {
+        background: #3fa35b;
+        color: white;
+    }
+
+
+    /* SON */
+
+    .quantity-number {
+        min-width: 25px;
+
+        text-align: center;
+
+        font-size: 21px;
+
+        font-weight: 500;
+
+        color: #222;
+    }
+
+
+    /* SUBTOTAL */
+
+    .subtotal {
+        margin-top: 20px;
+
+        font-size: 17px;
+
+        color: #777;
+    }
+
+    .subtotal strong {
+        color: #222;
+        font-size: 19px;
+    }
+
+
+    /* O'CHIRISH */
+
+    .remove-link {
+        position: absolute;
+
+        right: 25px;
+        bottom: 20px;
+
+        color: #999;
+
+        font-size: 14px;
+
+        text-decoration: none;
+
+        transition: 0.2s;
+    }
+
+    .remove-link:hover {
+        color: #e60000;
+    }
+
+
+    /* TOTAL */
+
+    .cart-total {
+        background: white;
+
+        border-radius: 20px;
+
+        padding: 28px 35px;
+
+        margin-top: 25px;
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    }
+
+    .cart-total-title {
+        font-size: 24px;
+
+        font-weight: 700;
+    }
+
+    .cart-total-price {
+        font-size: 30px;
+
+        font-weight: 800;
+
+        color: #3fa35b;
+    }
+
+
+    /* BUYURTMA */
+
+    .order-btn {
+        display: block;
+
+        width: 100%;
+
+        margin-top: 20px;
+
+        padding: 17px;
+
+        border: none;
+
+        border-radius: 17px;
+
+        background: #151b1f;
+
+        color: white;
+
+        font-size: 18px;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+    }
+
+    .order-btn:hover {
+        background: #3fa35b;
+    }
+
+
+    /* MENYU */
+
+    .menu-btn {
+        display: block;
+
+        text-align: center;
+
+        margin-top: 12px;
+
+        padding: 15px;
+
+        border-radius: 16px;
+
+        background: #e9e9e9;
+
+        color: #222;
+
+        text-decoration: none;
+
+        font-weight: 600;
+
+        transition: 0.2s;
+    }
+
+    .menu-btn:hover {
+        background: #ddd;
+
+        color: #000;
+    }
+
+
+    /* BO'SH SAVAT */
+
+    .empty-cart {
+        background: white;
+
+        border-radius: 25px;
+
+        padding: 80px 30px;
+
+        text-align: center;
+
+        box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+    }
+
+    .empty-cart-icon {
+        font-size: 80px;
+
+        margin-bottom: 20px;
+    }
+
+    .empty-cart h2 {
+        font-size: 30px;
+
+        font-weight: 800;
+
+        margin-bottom: 10px;
+    }
+
+    .empty-cart p {
+        color: #777;
+
+        margin-bottom: 25px;
+    }
+
+    .empty-menu-btn {
+        display: inline-block;
+
+        padding: 14px 30px;
+
+        border-radius: 15px;
+
+        background: #3fa35b;
+
+        color: white;
+
+        text-decoration: none;
+
+        font-weight: 600;
+
+        transition: 0.2s;
+    }
+
+    .empty-menu-btn:hover {
+        background: #328a49;
+
+        color: white;
+    }
+
+
+    /* TELEFON */
+
+    @media (max-width: 850px) {
+
+        .cart-page {
+            padding: 25px 12px;
+        }
+
+        .cart-item {
+            display: block;
+
+            padding: 25px;
+
+            min-height: auto;
+        }
+
+        .cart-image-wrapper {
+            width: 100%;
+
+            margin-bottom: 25px;
+        }
+
+        .cart-image {
+            width: 100%;
+
+            max-width: 330px;
+
+            height: 260px;
+        }
+
+        .cart-info {
+            width: 100%;
+
+            padding-left: 0;
+        }
+
+        .product-name {
+            font-size: 28px;
+        }
+
+        .product-price {
+            font-size: 27px;
+        }
+
+        .quantity-area {
+            gap: 12px;
+        }
+
+        .quantity-btn {
+            width: 52px;
+            height: 52px;
+        }
+
+        .like-btn {
+            right: 10px;
+        }
+
+        .cart-total {
+            display: block;
+
+            text-align: center;
+        }
+
+        .cart-total-price {
+            margin-top: 10px;
+        }
+
+        .remove-link {
+            position: static;
+
+            display: inline-block;
+
+            margin-top: 10px;
+        }
+    }
+</style>
+
+
+<div class="cart-page">
+
+    <div class="cart-container">
+
+
+        <!-- HEADER -->
+
+        <div class="cart-header">
+
+            <h1>
+                🛒 Savat
+            </h1>
+
+            {% if products %}
+
+                <div class="cart-count">
+                    {{ products|length }} ta
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        {% if products %}
+
+
+        <!-- MAHSULOTLAR -->
+
+        {% for item in products %}
+
+        <div class="cart-item">
+
+
+            <!-- RASM -->
+
+            <div class="cart-image-wrapper">
+
+                {% if item.product.image %}
+
+                    <img
+                        src="{{ item.product.image.url }}"
+                        alt="{{ item.product.name }}"
+                        class="cart-image"
+                    >
+
+                {% else %}
+
+                    <div
+                        class="cart-image"
+                        style="
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            background:#f3f3f3;
+                            font-size:70px;
+                        "
+                    >
+                        🍽️
+                    </div>
+
+                {% endif %}
+
+
+                <!-- YURAK -->
+
+                <button
+                    class="like-btn"
+                    type="button"
+                    title="Sevimlilarga qo'shish"
+                >
+                    ♡
+                </button>
+
+            </div>
+
+
+            <!-- MA'LUMOT -->
+
+            <div class="cart-info">
+
+
+                <!-- NOMI -->
+
+                <div class="product-name">
+
+                    {{ item.product.name }}
+
+                </div>
+
+
+                <!-- NARXI -->
+
+                <div class="product-price">
+
+                    {{ item.product.price }} so'm
+
+                </div>
+
+
+                <!-- MIQDOR -->
+
+                <div class="quantity-area">
+
+
+                    <!-- AYIRISH -->
+
+                    <a
+                        href="{% url 'remove-from-cart' item.product.id %}"
+                        class="quantity-btn minus-btn"
+                    >
+                        −
+                    </a>
+
+
+                    <!-- SONI -->
+
+                    <span class="quantity-number">
+
+                        {{ item.quantity }}
+
+                    </span>
+
+
+                    <!-- QO'SHISH -->
+
+                    <a
+                        href="{% url 'add-to-cart' item.product.id %}"
+                        class="quantity-btn plus-btn"
+                    >
+                        +
+                    </a>
+
+
+                </div>
+
+
+                <!-- SUBTOTAL -->
+
+                <div class="subtotal">
+
+                    Jami:
+
+                    <strong>
+                        {{ item.subtotal }} so'm
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- O'CHIRISH -->
+
+            <a
+                href="{% url 'remove-from-cart' item.product.id %}"
+                class="remove-link"
+            >
+                Mahsulotni o'chirish
+            </a>
+
+
+        </div>
+
+        {% endfor %}
+
+
+        <!-- UMUMIY -->
+
+        <div class="cart-total">
+
+            <div class="cart-total-title">
+                Jami summa
+            </div>
+
+            <div class="cart-total-price">
+                {{ total }} so'm
+            </div>
+
+        </div>
+
+
+        <!-- BUYURTMA -->
+
+        <button
+            type="button"
+            class="order-btn"
+        >
+            Buyurtma berish →
+        </button>
+
+
+        <!-- MENYU -->
+
+        <a
+            href="{% url 'menu' %}"
+            class="menu-btn"
+        >
+            ← Menyuga qaytish
+        </a>
+
+
+        {% else %}
+
+
+        <!-- BO'SH SAVAT -->
+
+        <div class="empty-cart">
+
+            <div class="empty-cart-icon">
+                🛒
+            </div>
+
+            <h2>
+                Savat bo‘sh
+            </h2>
+
+            <p>
+                Hozircha savatingizda mahsulot yo‘q.
+            </p>
+
+            <a
+                href="{% url 'menu' %}"
+                class="empty-menu-btn"
+            >
+                🍔 Menyuni ko‘rish
+            </a>
+
+        </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+</div>
+
+{% endblock %}

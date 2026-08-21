@@ -70,9 +70,10 @@
 
             {% if product.is_available %}
 
-                <button class="detail-add-btn">
+                <a href="{% url 'add-to-cart' product.id %}"
+                   class="detail-add-btn">
                     Qo'shish
-                </button>
+                </a>
 
             {% else %}
 
