@@ -18,86 +18,138 @@
             box-sizing: border-box;
         }
 
-
         body {
             font-family: Arial, sans-serif;
             background: #fff;
             color: #171717;
         }
 
-
         /* ========================= */
         /* HEADER */
         /* ========================= */
 
         header {
-            height: 112px;
-
+            min-height: 112px;
             border-bottom: 1px solid #ddd;
 
             display: flex;
             align-items: center;
 
-            padding: 0 40px;
+            padding: 15px 40px;
+            gap: 30px;
 
-            gap: 35px;
+            background: white;
+
+            position: relative;
+            z-index: 100;
         }
-
 
         .logo {
             font-size: 36px;
             font-weight: bold;
-
             color: #743d91;
+            white-space: nowrap;
         }
-
 
         nav {
             display: flex;
-
-            gap: 28px;
-
+            gap: 22px;
             align-items: center;
         }
 
-
         nav a {
             text-decoration: none;
-
             color: #222;
-
-            font-size: 18px;
+            font-size: 17px;
         }
-
 
         nav a:hover {
             color: #743d91;
         }
 
 
+        /* ========================= */
+        /* ORDER BUTTON */
+        /* ========================= */
+
         .order-btn {
             margin-left: auto;
 
             background: #743d91;
-
             color: white;
 
-            padding: 14px 25px;
+            padding: 13px 22px;
 
             border-radius: 30px;
 
             border: none;
 
-            font-size: 16px;
+            font-size: 15px;
 
             cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .order-btn:hover {
+            background: #5f3277;
         }
 
 
-        .phone {
-            font-size: 18px;
+        /* ========================= */
+        /* PHONE */
+        /* ========================= */
 
+        .phone {
+            font-size: 15px;
+        }
+
+        .phone-number {
             font-weight: bold;
+            margin-bottom: 8px;
+            white-space: nowrap;
+        }
+
+
+        /* ========================= */
+        /* ACCOUNT ACTIONS */
+        /* ========================= */
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-item {
+            text-decoration: none;
+            color: #222;
+
+            display: flex;
+            align-items: center;
+
+            gap: 4px;
+
+            white-space: nowrap;
+
+            transition: 0.2s;
+        }
+
+        .header-item:hover {
+            color: #743d91;
+        }
+
+        .username {
+            color: #743d91;
+            font-weight: bold;
+        }
+
+        .logout {
+            color: #dc3545;
+        }
+
+        .logout:hover {
+            color: #a71d2a;
         }
 
 
@@ -107,31 +159,31 @@
 
         .menu-layout {
             display: flex;
-
             align-items: flex-start;
-
             gap: 30px;
-
             padding: 30px 40px;
         }
 
 
         /* ========================= */
-        /* KATEGORIYALAR */
+        /* CATEGORIES */
         /* ========================= */
 
         .categories {
             width: 180px;
 
             display: flex;
-
             flex-direction: column;
 
             gap: 10px;
 
             flex-shrink: 0;
-        }
 
+            position: sticky;
+            top: 20px;
+
+            height: fit-content;
+        }
 
         .category {
             display: block;
@@ -151,58 +203,14 @@
             transition: 0.2s;
         }
 
-
         .category:hover {
             background: #f3eafa;
-
             color: #743d91;
         }
-
 
         .category:first-child {
             border: 1px solid #743d91;
-
             color: #743d91;
-        }
-
-
-        /* ========================= */
-        /* O'NG TOMON */
-        /* ========================= */
-
-        .menu-products {
-            flex: 1;
-
-            min-width: 0;
-        }
-
-
-        /* ========================= */
-        /* MENU TITLE */
-        /* ========================= */
-
-        .menu-title {
-            display: flex;
-
-            align-items: center;
-
-            gap: 20px;
-
-            margin: 0 0 25px;
-        }
-
-
-        .menu-title span {
-            height: 1px;
-
-            background: #d9bfdc;
-
-            flex: 1;
-        }
-
-
-        .menu-title h1 {
-            font-size: 38px;
         }
 
 
@@ -210,14 +218,33 @@
         /* PRODUCTS */
         /* ========================= */
 
+        .menu-products {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .menu-title {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 0 0 25px;
+        }
+
+        .menu-title span {
+            height: 1px;
+            background: #d9bfdc;
+            flex: 1;
+        }
+
+        .menu-title h1 {
+            font-size: 38px;
+            white-space: nowrap;
+        }
+
         .products {
             display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
-
             padding-bottom: 50px;
         }
 
@@ -228,9 +255,7 @@
 
         .product-link {
             text-decoration: none;
-
             color: inherit;
-
             display: block;
         }
 
@@ -250,9 +275,8 @@
 
             cursor: pointer;
 
-            transition: 0.2s;
+            transition: 0.3s;
         }
-
 
         .product-card:hover {
             transform: translateY(-5px);
@@ -275,37 +299,41 @@
             display: flex;
 
             align-items: center;
-
             justify-content: center;
 
             background: white;
-        }
 
+            overflow: hidden;
+        }
 
         .product-image img {
             width: 90%;
-
             height: 90%;
 
             object-fit: contain;
 
             display: block;
+
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover
+        .product-image img {
+            transform: scale(1.12);
         }
 
 
         /* ========================= */
-        /* LIKE */
+        /* LIKE BUTTON */
         /* ========================= */
 
         .like {
             position: absolute;
 
             right: 20px;
-
             top: 20px;
 
             width: 45px;
-
             height: 45px;
 
             border-radius: 50%;
@@ -325,14 +353,8 @@
             transition: 0.2s;
         }
 
-
         .like:hover {
             transform: scale(1.15);
-        }
-
-
-        .like.liked {
-            color: red;
         }
 
 
@@ -344,25 +366,21 @@
             padding: 15px;
         }
 
-
         .product-info h2 {
             font-size: 20px;
-
             font-weight: 500;
-
             margin-bottom: 10px;
         }
 
-
         .product-info p {
             color: #777;
-
             margin-bottom: 15px;
+            line-height: 1.4;
         }
 
 
         /* ========================= */
-        /* PRICE */
+        /* PRODUCT BOTTOM */
         /* ========================= */
 
         .product-bottom {
@@ -375,14 +393,14 @@
             gap: 10px;
         }
 
-
         .product-bottom strong {
             font-size: 25px;
+            white-space: nowrap;
         }
 
 
         /* ========================= */
-        /* BATAFSIL */
+        /* DETAIL BUTTON */
         /* ========================= */
 
         .detail-btn {
@@ -401,10 +419,9 @@
             transition: 0.2s;
         }
 
-
-        .product-card:hover .detail-btn {
+        .product-card:hover
+        .detail-btn {
             background: #743d91;
-
             color: white;
         }
 
@@ -416,45 +433,67 @@
         @media (max-width: 1100px) {
 
             .products {
-                grid-template-columns:
-                    repeat(2, 1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
 
+            nav {
+                gap: 12px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+
+            header {
+                padding: 15px 20px;
+                gap: 20px;
+            }
+
+            .logo {
+                font-size: 30px;
+            }
         }
 
 
         /* ========================= */
-        /* TELEFON */
+        /* MOBILE */
         /* ========================= */
 
         @media (max-width: 700px) {
 
             header {
-                padding: 0 15px;
-            }
+                min-height: 80px;
 
+                padding: 10px 15px;
+
+                gap: 15px;
+            }
 
             .logo {
                 font-size: 28px;
             }
 
-
             nav {
                 display: none;
             }
-
 
             .phone {
                 display: none;
             }
 
+            .order-btn {
+                padding: 10px 15px;
+
+                font-size: 14px;
+            }
 
             .menu-layout {
                 flex-direction: column;
 
-                padding: 20px;
-            }
+                padding: 0;
 
+                gap: 0;
+            }
 
             .categories {
                 width: 100%;
@@ -463,22 +502,75 @@
 
                 overflow-x: auto;
 
-                padding-bottom: 10px;
-            }
+                gap: 8px;
 
+                padding: 15px;
+
+                background: white;
+
+                border-bottom: 1px solid #eee;
+
+                position: sticky;
+
+                top: 0;
+
+                z-index: 50;
+
+                height: auto;
+            }
 
             .category {
                 flex-shrink: 0;
+
+                padding: 11px 18px;
+
+                font-size: 15px;
             }
 
+            .menu-products {
+                width: 100%;
 
-            .products {
-                grid-template-columns: 1fr;
+                padding: 0 15px;
             }
 
+            .menu-title {
+                margin: 25px 0 20px;
+            }
 
             .menu-title h1 {
                 font-size: 30px;
+            }
+
+            .products {
+                grid-template-columns: 1fr;
+
+                gap: 20px;
+            }
+
+            .product-image {
+                height: 330px;
+            }
+        }
+
+
+        /* ========================= */
+        /* SMALL MOBILE */
+        /* ========================= */
+
+        @media (max-width: 400px) {
+
+            .product-image {
+                height: 280px;
+            }
+
+            .product-bottom strong {
+                font-size: 21px;
+            }
+
+            .detail-btn {
+                padding: 8px 12px;
+
+                font-size: 13px;
             }
 
         }
@@ -491,16 +583,25 @@
 <body>
 
 
+<!-- ========================= -->
+<!-- HEADER -->
+<!-- ========================= -->
+
 <header>
+
+
+    <!-- LOGO -->
 
     <div class="logo">
         Nomdor
     </div>
 
 
+    <!-- MENU -->
+
     <nav>
 
-        <a href="{% url 'menu' %}">
+        <a href="{% url 'about' %}">
             Biz haqimizda
         </a>
 
@@ -508,7 +609,7 @@
             Menyu
         </a>
 
-        <a href="#">
+        <a href="{% url 'aksiya' %}">
             Aksiyalar
         </a>
 
@@ -527,17 +628,107 @@
     </nav>
 
 
+    <!-- BUYURTMA -->
+
     <button class="order-btn">
         Buyurtma turi
     </button>
 
 
+    <!-- PHONE + ACCOUNT -->
+
     <div class="phone">
-        +998 71 207 04 04
+
+        <div class="phone-number">
+            📞 +998 71 207 04 04
+        </div>
+
+
+        <div class="header-actions">
+
+
+            {% if user.is_authenticated %}
+
+                <!-- LOGIN QILGAN USER -->
+
+                <span class="header-item username">
+                    👤 {{ user.username }}
+                </span>
+
+
+                <!-- CHIQISH -->
+
+                <a
+                    href="{% url 'logout' %}"
+                    class="header-item logout">
+
+                    🚪
+                    <span>Chiqish</span>
+
+                </a>
+
+
+            {% else %}
+
+                <!-- LOGIN QILMAGAN USER -->
+
+                <a
+                    href="{% url 'login' %}"
+                    class="header-item">
+
+                    👤
+                    <span>Kirish</span>
+
+                </a>
+
+
+                <a
+                    href="{% url 'register' %}"
+                    class="header-item">
+
+                    📝
+                    <span>Ro‘yxatdan o‘tish</span>
+
+                </a>
+
+
+            {% endif %}
+
+
+            <!-- QIDIRUV -->
+
+            <a
+                href="{% url 'search' %}"
+                class="header-item">
+
+                🔍
+                <span>Qidiruv</span>
+
+            </a>
+
+
+            <!-- SAVAT -->
+
+            <a
+                href="#"
+                class="header-item">
+
+                🛒
+                <span>Savat</span>
+
+            </a>
+
+
+        </div>
+
     </div>
 
 </header>
 
+
+<!-- ========================= -->
+<!-- CONTENT -->
+<!-- ========================= -->
 
 {% block content %}
 

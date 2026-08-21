@@ -1,0 +1,44 @@
+{% extends "nomdor/base.html" %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card mx-auto p-4 shadow"
+         style="max-width: 500px;">
+
+        <h2 class="text-center mb-4">
+            📝 Ro‘yxatdan o‘tish
+        </h2>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button
+                type="submit"
+                class="btn btn-dark w-100">
+
+                Ro‘yxatdan o‘tish
+
+            </button>
+
+        </form>
+
+        <div class="text-center mt-3">
+
+            Akkauntingiz bormi?
+
+            <a href="{% url 'login' %}">
+                Kirish
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+<h1>Aksiyalar</h1>
+
+{% if products %}
+    {% for product in products %}
+        <div>
+            <h2>{{ product.name }}</h2>
+
+            <del>{{ product.old_price }} so'm</del>
+            <strong>{{ product.price }} so'm</strong>
+        </div>
+    {% endfor %}
+{% else %}
+    <h2>Hozircha aksiyalar mavjud emas 😔</h2>
+{% endif %}

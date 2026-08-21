@@ -1,0 +1,552 @@
+{% extends "nomdor/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+
+    /* ========================= */
+    /* ABOUT */
+    /* ========================= */
+
+    .about-section {
+        padding: 70px 40px;
+    }
+
+    .about-container {
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .subtitle {
+        color: #743d91;
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .about-title {
+        font-size: 45px;
+        font-weight: bold;
+        margin-top: 15px;
+        margin-bottom: 25px;
+    }
+
+    .about-title span {
+        color: #743d91;
+    }
+
+    .about-text {
+        color: #666;
+        font-size: 18px;
+        line-height: 1.7;
+        margin-bottom: 15px;
+    }
+
+    .about-image img {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+        border-radius: 20px;
+    }
+
+
+    /* ========================= */
+    /* ABOUT CRUD */
+    /* ========================= */
+
+    .crud-buttons {
+        margin-top: 25px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+
+    /* ========================= */
+    /* PRODUCTS */
+    /* ========================= */
+
+    .products-section {
+        padding: 70px 40px;
+        background: #fafafa;
+    }
+
+    .products-container {
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .products-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 35px;
+        gap: 20px;
+    }
+
+    .products-title {
+        font-size: 38px;
+        font-weight: bold;
+    }
+
+    .products-title span {
+        color: #743d91;
+    }
+
+    .add-product-btn {
+        background: #743d91;
+        color: white;
+        text-decoration: none;
+        padding: 13px 22px;
+        border-radius: 30px;
+        transition: 0.2s;
+        white-space: nowrap;
+    }
+
+    .add-product-btn:hover {
+        background: #5f3277;
+        color: white;
+    }
+
+
+    /* ========================= */
+    /* PRODUCT GRID */
+    /* ========================= */
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+
+
+    /* ========================= */
+    /* PRODUCT CARD */
+    /* ========================= */
+
+    .product-card {
+        background: white;
+        border: 1px solid #e5e5e5;
+        border-radius: 20px;
+        overflow: hidden;
+        transition: 0.3s;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+
+        box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.10);
+    }
+
+
+    /* ========================= */
+    /* PRODUCT IMAGE */
+    /* ========================= */
+
+    .product-image {
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        overflow: hidden;
+    }
+
+    .product-image img {
+        width: 90%;
+        height: 90%;
+        object-fit: contain;
+        transition: 0.3s;
+    }
+
+    .product-card:hover .product-image img {
+        transform: scale(1.08);
+    }
+
+
+    /* ========================= */
+    /* PRODUCT INFO */
+    /* ========================= */
+
+    .product-info {
+        padding: 20px;
+    }
+
+    .product-info h3 {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .product-description {
+        color: #777;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+
+    .product-price {
+        color: #743d91;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+
+    /* ========================= */
+    /* PRODUCT BUTTONS */
+    /* ========================= */
+
+    .product-buttons {
+        display: flex;
+        gap: 8px;
+    }
+
+    .edit-btn {
+        background: #ffc107;
+        color: #222;
+        text-decoration: none;
+        padding: 9px 15px;
+        border-radius: 8px;
+        font-size: 14px;
+    }
+
+    .delete-btn {
+        background: #dc3545;
+        color: white;
+        text-decoration: none;
+        padding: 9px 15px;
+        border-radius: 8px;
+        font-size: 14px;
+    }
+
+    .edit-btn:hover {
+        background: #e0a800;
+        color: #222;
+    }
+
+    .delete-btn:hover {
+        background: #bb2d3b;
+        color: white;
+    }
+
+
+    /* ========================= */
+    /* EMPTY */
+    /* ========================= */
+
+    .empty-products {
+        text-align: center;
+        padding: 50px;
+        background: white;
+        border-radius: 20px;
+        border: 1px solid #eee;
+    }
+
+
+    /* ========================= */
+    /* MOBILE */
+    /* ========================= */
+
+    @media (max-width: 900px) {
+
+        .product-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+    }
+
+
+    @media (max-width: 700px) {
+
+        .about-section {
+            padding: 40px 15px;
+        }
+
+        .about-title {
+            font-size: 32px;
+        }
+
+        .about-text {
+            font-size: 16px;
+        }
+
+        .about-image img {
+            height: 300px;
+        }
+
+        .products-section {
+            padding: 40px 15px;
+        }
+
+        .products-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .products-title {
+            font-size: 30px;
+        }
+
+        .product-grid {
+            grid-template-columns: 1fr;
+        }
+
+    }
+
+</style>
+
+
+<!-- ========================= -->
+<!-- ABOUT -->
+<!-- ========================= -->
+
+<section class="about-section">
+
+    <div class="about-container">
+
+        <div class="row align-items-center g-5">
+
+            <!-- MATN -->
+
+            <div class="col-lg-6">
+
+                <span class="subtitle">
+                    BIZ HAQIMIZDA
+                </span>
+
+
+                {% for about in abouts %}
+
+                    <h1 class="about-title">
+                        {{ about.title }}
+                    </h1>
+
+                    <p class="about-text">
+                        {{ about.description }}
+                    </p>
+
+
+                    <!-- ABOUT CRUD -->
+
+                    <div class="crud-buttons">
+
+                        <a href="{% url 'update-about' about.pk %}"
+                           class="btn btn-warning">
+
+                            Tahrirlash
+
+                        </a>
+
+
+                        <a href="{% url 'delete-about' about.pk %}"
+                           class="btn btn-danger">
+
+                            O‘chirish
+
+                        </a>
+
+                    </div>
+
+                {% empty %}
+
+                    <h1 class="about-title">
+
+                        Nomdor —
+                        <span>sifat va mazza</span>
+                        uyg‘unligi
+
+                    </h1>
+
+                    <p class="about-text">
+
+                        Hozircha biz haqimizda ma'lumot mavjud emas.
+
+                    </p>
+
+                {% endfor %}
+
+
+                <!-- ABOUT CREATE -->
+
+                <div class="mt-3">
+
+                    <a href="{% url 'create-about' %}"
+                       class="btn btn-success">
+
+                        + About qo‘shish
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- RASM -->
+
+            <div class="col-lg-6 about-image">
+
+                <img
+                    src="{% static 'images/about.jpg' %}"
+                    alt="Nomdor"
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================= -->
+<!-- MAHSULOTLAR -->
+<!-- ========================= -->
+
+<section class="products-section">
+
+    <div class="products-container">
+
+
+        <!-- TITLE + CREATE -->
+
+        <div class="products-header">
+
+            <h2 class="products-title">
+
+                Bizning
+                <span>mahsulotlarimiz</span>
+
+            </h2>
+
+
+            <a href="{% url 'create-about' %}"
+               class="add-product-btn">
+
+                + Mahsulot qo‘shish
+
+            </a>
+
+        </div>
+
+
+        <!-- PRODUCTS -->
+
+        {% if products %}
+
+            <div class="product-grid">
+
+                {% for product in products %}
+
+                    <div class="product-card">
+
+
+                        <!-- IMAGE -->
+
+                        <div class="product-image">
+
+                            {% if product.image %}
+
+                                <img
+                                    src="{{ product.image.url }}"
+                                    alt="{{ product.name }}"
+                                >
+
+                            {% else %}
+
+                                <p>Rasm mavjud emas</p>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- INFO -->
+
+                        <div class="product-info">
+
+                            <h3>
+                                {{ product.name }}
+                            </h3>
+
+
+                            <p class="product-description">
+
+                                {{ product.description }}
+
+                            </p>
+
+
+                            <div class="product-price">
+
+                                {{ product.price }} so‘m
+
+                            </div>
+
+
+                            <!-- BUTTONS -->
+
+                            <div class="product-buttons">
+
+                                <a
+                                    href="{% url 'update-about' product.pk %}"
+                                    class="edit-btn">
+
+                                    ✏️ Tahrirlash
+
+                                </a>
+
+
+                                <a
+                                    href="{% url 'delete-about' product.pk %}"
+                                    class="delete-btn">
+
+                                    🗑 O‘chirish
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-products">
+
+                <h3>
+                    Hozircha mahsulotlar yo‘q
+                </h3>
+
+                <p>
+                    Birinchi mahsulotni qo‘shing.
+                </p>
+
+                <br>
+
+                <a href="{% url 'create-about' %}"
+                   class="add-product-btn">
+
+                    + Mahsulot qo‘shish
+
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+{% endblock %}
