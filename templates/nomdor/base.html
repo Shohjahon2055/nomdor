@@ -719,6 +719,23 @@
 
             </a>
 
+{% if request.user.is_authenticated and request.user.role == "ADMIN" %}
+            <a
+                href="{% url 'role-change' %}"
+                class="header-item">
+
+                <span>Role berish</span>
+
+            </a>
+            {% endif %}
+
+
+
+
+
+
+
+
 
         </div>
 

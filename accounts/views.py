@@ -1,7 +1,8 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, RoleForm, User
+from .models import CustomUser
 
 
 def register_user(request):
@@ -31,3 +32,23 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+
+
+# Role berish
+
+def role_change(request):
+    if request.method == 'POST':
+        form=RoleForm(request.POST)
+        if form.is_valid():
+            username=form.cleaned_data.get('username')
+            role=form.cleaned_data.get('role')
+            user=CustomUser.objects.filter(username=username.username).first()
+            if user:
+                user.role=role
+                user.save()
+                return redirect('menu')
+
+    else:
+        form=RoleForm()
+    return render(request, 'accounts/role_change.html', {'form': form})

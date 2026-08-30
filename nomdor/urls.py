@@ -1,4 +1,6 @@
 from django.urls import path
+
+from accounts.permissions import check_admin
 from nomdor import views
 
 from .views import CategoryListView,CategoryProductListView,ProductDetailView,AbooutView,AksiyalarListView,product_list
@@ -23,8 +25,8 @@ urlpatterns = [
 
 #     CREATE UPDETE DELETE
 
-    path('product/create/',views.ProductCreateView.as_view(),name='create-about'),
-    path('product/update/<int:pk>/',views.ProductUpdateView.as_view(),name='update-about'),
-    path('product/delete/<int:pk>/',views.ProductDeleteView.as_view(),name='delete-about'),
+    path('product/create/',check_admin(views.ProductCreateView.as_view()),name='create-about'),
+    path('product/update/<int:pk>/',check_admin(views.ProductUpdateView.as_view()),name='update-about'),
+    path('product/delete/<int:pk>/',check_admin(views.ProductDeleteView.as_view()),name='delete-about'),
 ]
 

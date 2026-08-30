@@ -81,7 +81,6 @@ def product_list(request):
 # CLASSDA CREATE DELETE UPDATE
 
 
-
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
