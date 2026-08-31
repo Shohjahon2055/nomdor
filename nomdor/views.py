@@ -169,3 +169,33 @@ def cart(request):
     }
 
     return render(request, 'nomdor/cart.html', context)
+
+
+
+
+
+
+
+
+
+
+# LIKES
+
+from django.shortcuts import render,get_object_or_404,redirect
+from .models import Product,Like
+from django.contrib.auth.decorators import login_required
+
+
+@login_required
+def toggle_like(request,product_id):
+    product=get_object_or_404(Product,id=product_id)
+    user=request.user
+
+    like,created=Like.objects.get_or_create(user=user,product=product)
+    if created:
+        product.likes.add(user)
+
+    else:
+        product.likes.remove(user)
+
+    return redirect('product_detail',pk=product.id)

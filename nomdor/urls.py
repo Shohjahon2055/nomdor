@@ -16,6 +16,9 @@ urlpatterns = [
     path('aksiyalar/',AksiyalarListView.as_view(),name='aksiya'),
     path('search/',views.product_list,name='search'),
 
+    # Likes
+    path('product/<int:product_id>/like/',views.toggle_like,name='toggle_like'),
+
 #     Savat
     path('cart/add/<int:product_id>/',views.add_to_cart,name='add-to-cart'),
     path('cart/remove/<int:product_id>/',views.remove_from_cart,name='remove-from-cart'),
