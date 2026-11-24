@@ -1,0 +1,10 @@
+{% extends "nomdor/base.html" %}
+{% block content %}
+  {% if order %}
+    <h2>✅ Buyurtma #{{ order.id }} qabul qilindi!</h2>
+    <p>Jami: {{ order.total }} so'm. Tez orada siz bilan bog'lanamiz.</p>
+  {% else %}
+    <p>Buyurtma topilmadi.</p>
+  {% endif %}
+  <a href="{% url 'menu' %}">Menyuga qaytish</a>
+{% endblock %}

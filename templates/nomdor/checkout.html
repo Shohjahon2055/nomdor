@@ -1,0 +1,17 @@
+{% extends "nomdor/base.html" %}
+{% block content %}
+<h2>Buyurtma berish</h2>
+
+<ul>
+  {% for i in items %}
+    <li>{{ i.product.name }} × {{ i.quantity }} = {{ i.subtotal }} so'm</li>
+  {% endfor %}
+</ul>
+<p><b>Jami: {{ total }} so'm</b></p>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">✅ Buyurtmani tasdiqlash</button>
+</form>
+{% endblock %}

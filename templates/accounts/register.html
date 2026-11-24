@@ -1,30 +1,182 @@
 {% extends "nomdor/base.html" %}
 
 {% block content %}
+<style>
+    /* Boshqa CSSlar bilan to'qnashmaslik uchun alohida konteyner */
+    .nomdor-auth-page {
+        width: 100%;
+        min-height: 75vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 16px;
+        background-color: #f8f9fc;
+        box-sizing: border-box;
+    }
 
-<div class="container py-5">
+    .nomdor-auth-box {
+        width: 100%;
+        max-width: 460px;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 36px 32px;
+        box-shadow: 0 12px 32px rgba(90, 45, 130, 0.08);
+        border: 1px solid #eceef5;
+        box-sizing: border-box;
+    }
 
-    <div class="card mx-auto p-4 shadow" style="max-width: 500px;">
+    .nomdor-auth-title {
+        margin: 0 0 8px 0;
+        font-size: 26px;
+        font-weight: 700;
+        color: #1e1b4b;
+        text-align: center;
+    }
 
-        <h2 class="text-center mb-4">🔐 Tizimga kirish</h2>
+    .nomdor-auth-desc {
+        margin: 0 0 24px 0;
+        font-size: 14px;
+        color: #64748b;
+        text-align: center;
+    }
 
-        <form method="POST">
+    .nomdor-field {
+        margin-bottom: 18px;
+        text-align: left;
+    }
+
+    .nomdor-field label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #334155;
+    }
+
+    /* Django form inputlarini majburan to'g'ri kenglikka keltirish */
+    .nomdor-field input,
+    .nomdor-field select,
+    .nomdor-field textarea {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 11px 14px !important;
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+        color: #0f172a !important;
+        background-color: #ffffff !important;
+        border: 1.5px solid #cbd5e1 !important;
+        border-radius: 10px !important;
+        box-sizing: border-box !important;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .nomdor-field input:focus,
+    .nomdor-field select:focus,
+    .nomdor-field textarea:focus {
+        outline: none !important;
+        border-color: #7c3aed !important;
+        box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15) !important;
+    }
+
+    .nomdor-help {
+        display: block;
+        margin-top: 6px;
+        font-size: 12px;
+        line-height: 1.45;
+        color: #64748b;
+    }
+
+    .nomdor-help ul {
+        margin: 4px 0 0 16px;
+        padding: 0;
+    }
+
+    .nomdor-errors {
+        margin: 6px 0 0 0;
+        padding: 0;
+        list-style: none;
+        color: #dc2626;
+        font-size: 13px;
+    }
+
+    .nomdor-btn {
+        width: 100%;
+        padding: 13px 16px;
+        margin-top: 8px;
+        background-color: #7c3aed;
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .nomdor-btn:hover {
+        background-color: #6d28d9;
+    }
+
+    .nomdor-footer-link {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: #475569;
+    }
+
+    .nomdor-footer-link a {
+        color: #7c3aed;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .nomdor-footer-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="nomdor-auth-page">
+    <div class="nomdor-auth-box">
+        <h2 class="nomdor-auth-title">Ro'yxatdan o'tish</h2>
+        <p class="nomdor-auth-desc">Yangi akkaunt yarating va chegirmalarni kuzatib boring</p>
+
+        <form method="post" novalidate>
             {% csrf_token %}
 
-            {{ form.as_p }}
+            {% if form.non_field_errors %}
+                <ul class="nomdor-errors">
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
 
-            <button type="submit" class="btn btn-dark w-100">
-                Kirish
-            </button>
+            {% for field in form %}
+                <div class="nomdor-field">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+
+                    {% if field.help_text %}
+                        <div class="nomdor-help">{{ field.help_text|safe }}</div>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <ul class="nomdor-errors">
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="nomdor-btn">Ro'yxatdan o'tish</button>
         </form>
 
-        <div class="text-center mt-3">
-            Akkauntingiz yo‘qmi?
-            <a href="{% url 'register' %}">Ro‘yxatdan o‘tish</a>
+        <div class="nomdor-footer-link">
+            Akkauntingiz bormi? <a href="{% url 'login' %}">Tizimga kirish</a>
         </div>
-
     </div>
-
 </div>
-
 {% endblock %}

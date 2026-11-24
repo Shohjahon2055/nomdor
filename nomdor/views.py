@@ -1,4 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect
+
+from .forms import AboutForm, ProductForm, CheckoutForm
+from .models import Order
+from .services import create_order
+from telegram_bot.notify import send_new_order
+
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
@@ -183,7 +188,6 @@ def cart(request):
 
 from django.shortcuts import render,get_object_or_404,redirect
 from .models import Product,Like
-from django.contrib.auth.decorators import login_required
 
 
 @login_required
@@ -199,3 +203,69 @@ def toggle_like(request,product_id):
         product.likes.remove(user)
 
     return redirect('product_detail',pk=product.id)
+
+
+# LAKATSIYA
+
+def lokasions(request):
+    return render(request,'nomdor/lokasions.html')
+
+
+# CHEK BUYURTMANI SAQLASH
+
+@login_required
+def checkout(request):
+    cart = request.session.get('cart', {})
+    if not cart:
+        return redirect('cart')
+
+    products = Product.objects.filter(id__in=cart.keys(), is_available=True)
+    items = [(p, cart[str(p.id)]) for p in products]
+    if not items:
+        return redirect('cart')
+    total = sum(p.price * q for p, q in items)
+
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            d = form.cleaned_data
+            order = create_order(
+                items=items,
+                phone=d['phone'],
+                name=d['name'],
+                delivery_type=d['delivery_type'],
+                address=d['address'],
+                source=Order.Source.SITE,
+                user=request.user,
+            )
+            send_new_order(order)
+            request.session['cart'] = {}
+            request.session['last_order_id'] = order.id
+            return redirect('order_success')
+    else:
+        form = CheckoutForm(initial={
+            'name': request.user.get_full_name() or request.user.username,
+            'phone': request.user.phone,
+        })
+
+    return render(request, 'nomdor/checkout.html', {
+        'form': form,
+        'items': [{'product': p, 'quantity': q, 'subtotal': p.price * q} for p, q in items],
+        'total': total,
+    })
+
+
+def order_success(request):
+    order_id = request.session.get('last_order_id')
+    order = Order.objects.filter(id=order_id).first() if order_id else None
+    return render(request, 'nomdor/order_success.html', {'order': order})
+
+
+@login_required
+def my_orders(request):
+    orders = (
+        Order.objects.filter(user=request.user)
+        .prefetch_related("items")
+        .order_by("-created_at")
+    )
+    return render(request, 'nomdor/my_orders.html', {'orders': orders})

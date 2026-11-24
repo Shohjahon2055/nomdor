@@ -1,0 +1,58 @@
+{% extends "nomdor/base.html" %}
+
+{% block content %}
+<style>
+    .orders-page { background:#f3f3f3; min-height:100vh; padding:45px 20px; }
+    .orders-container { max-width:900px; margin:0 auto; }
+    .orders-container h1 { font-size:34px; font-weight:800; margin-bottom:30px; }
+    .order-card { background:#fff; border-radius:20px; padding:25px 30px;
+                  margin-bottom:20px; box-shadow:0 4px 20px rgba(0,0,0,.07); }
+    .order-head { display:flex; justify-content:space-between; align-items:center;
+                  margin-bottom:12px; flex-wrap:wrap; gap:8px; }
+    .order-head h3 { margin:0; font-size:22px; font-weight:800; }
+    .order-status { padding:6px 16px; border-radius:30px; font-weight:600;
+                    font-size:14px; background:#e9e9e9; color:#222; }
+    .order-status.new { background:#fff3cd; color:#8a6d00; }
+    .order-status.preparing { background:#dbeafe; color:#1e40af; }
+    .order-status.delivering { background:#ede9fe; color:#5b21b6; }
+    .order-status.done { background:#dcfce7; color:#166534; }
+    .order-status.canceled { background:#fee2e2; color:#991b1b; }
+    .order-date { color:#777; font-size:14px; margin-bottom:12px; }
+    .order-items { list-style:none; padding:0; margin:0 0 12px; }
+    .order-items li { padding:6px 0; border-bottom:1px solid #f0f0f0; }
+    .order-total { font-size:20px; font-weight:800; color:#3fa35b; text-align:right; }
+    .empty-orders { background:#fff; border-radius:25px; padding:60px 30px;
+                    text-align:center; }
+</style>
+
+<div class="orders-page">
+  <div class="orders-container">
+    <h1>📦 Buyurtmalarim</h1>
+
+    {% for order in orders %}
+      <div class="order-card">
+        <div class="order-head">
+          <h3>Buyurtma #{{ order.id }}</h3>
+          <span class="order-status {{ order.status }}">{{ order.get_status_display }}</span>
+        </div>
+        <div class="order-date">
+          🕒 {{ order.created_at|date:"d.m.Y H:i" }} ·
+          {{ order.get_delivery_type_display }}
+          {% if order.address %}· 📍 {{ order.address }}{% endif %}
+        </div>
+        <ul class="order-items">
+          {% for item in order.items.all %}
+            <li>{{ item.name }} × {{ item.quantity }} — {{ item.price }} so'm</li>
+          {% endfor %}
+        </ul>
+        <div class="order-total">Jami: {{ order.total }} so'm</div>
+      </div>
+    {% empty %}
+      <div class="empty-orders">
+        <h2>Hali buyurtmalar yo'q</h2>
+        <a href="{% url 'menu' %}">🍔 Menyuni ko'rish</a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -617,7 +617,7 @@
             Ish o'rinlari
         </a>
 
-        <a href="#">
+        <a href="{% url 'lokasions' %}">
             Filiallar
         </a>
 
@@ -718,6 +718,8 @@
                 <span>Savat</span>
 
             </a>
+
+            <a href="{% url 'my_orders' %}">Buyurtmalarim</a>
 
 {% if request.user.is_authenticated and request.user.role == "ADMIN" %}
             <a

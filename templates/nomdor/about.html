@@ -375,7 +375,6 @@
                     <a href="{% url 'create-about' %}"
                        class="btn btn-success">
 
-                        + About qo‘shish
 
                     </a>
 
@@ -389,7 +388,7 @@
             <div class="col-lg-6 about-image">
 
                 <img
-                    src="{% static 'images/about.jpg' %}"
+                    src="{% static 'nomdor/images/about.jpg' %}"
                     alt="Nomdor"
                 >
 
@@ -423,14 +422,14 @@
 
             </h2>
 
-
+            {% if user.is_authenticated and user.is_staff %}
             <a href="{% url 'create-about' %}"
                class="add-product-btn">
 
                 + Mahsulot qo‘shish
 
             </a>
-
+            {% endif %}
         </div>
 
 
@@ -491,6 +490,7 @@
                             <!-- BUTTONS -->
 
                             <div class="product-buttons">
+                                {% if user.is_authenticated and user.is_staff %}
 
                                 <a
                                     href="{% url 'update-about' product.pk %}"
@@ -508,6 +508,7 @@
                                     🗑 O‘chirish
 
                                 </a>
+                                {% endif %}
 
                             </div>
 
@@ -532,6 +533,7 @@
                 </p>
 
                 <br>
+                {% if user.is_authenticated and user.is_staff %}
 
                 <a href="{% url 'create-about' %}"
                    class="add-product-btn">
@@ -539,6 +541,7 @@
                     + Mahsulot qo‘shish
 
                 </a>
+                {% endif %}
 
             </div>
 

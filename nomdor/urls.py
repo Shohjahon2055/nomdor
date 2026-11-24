@@ -16,6 +16,13 @@ urlpatterns = [
     path('aksiyalar/',AksiyalarListView.as_view(),name='aksiya'),
     path('search/',views.product_list,name='search'),
 
+    path('checkout/', views.checkout, name='checkout'),
+    path('order/success/', views.order_success, name='order_success'),
+    path('my-orders/', views.my_orders, name='my_orders'),
+
+    #lokatsiya
+    path('lokatsion/',views.lokasions,name='lokasions'),
+
     # Likes
     path('product/<int:product_id>/like/',views.toggle_like,name='toggle_like'),
 
